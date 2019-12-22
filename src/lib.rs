@@ -48,6 +48,7 @@ mod tests {
             Token::new(TokenKind::Let, "let".to_owned(), 1, 4),
             Token::new(TokenKind::In, "in".to_owned(), 1, 7),
             Token::new(TokenKind::RParen, ")".to_owned(), 1, 9),
+            Token::new(TokenKind::EOF, "<eof>".to_owned(), 1, 10),
         ]));
     }
 
@@ -57,7 +58,7 @@ mod tests {
         let lexer = Lexer::new(r#"//hello)"#, &syntax);
         let tokens = lexer.lex();
         println!("{:?}", tokens);
-        assert_eq!(tokens, Ok(vec![]))
+        assert_eq!(tokens, Ok(vec![Token::new(TokenKind::EOF, "<eof>".to_owned(), 1, 8)]))
     }
 
     #[test]
@@ -76,7 +77,16 @@ mod tests {
             Token::new(TokenKind::Identifier, "x".to_owned(), 1, 6),
             Token::new(TokenKind::Space, " ".to_owned(), 1, 7),
             Token::new(TokenKind::Identifier, "y".to_owned(), 1, 8),
+            Token::new(TokenKind::EOF, "<eof>".to_owned(), 1, 9),
         ]))
+    }
+
+    #[test]
+    fn simple_lambda() {
+        let syntax = gen_syntax();
+        let lexer = Lexer::space_sensitive(r#"\x"#, &syntax);
+        let tokens = lexer.lex();
+        println!("{:?}", tokens);
     }
 
 

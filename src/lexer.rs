@@ -27,7 +27,10 @@ impl<'a> Lexer<'a> {
             self.find().catch(|err| errors.push(err));
         }
 
-        if errors.is_empty() { Ok(self.tokens) }
+        if errors.is_empty() {
+            self.tokens.push(Token::new(TokenKind::EOF, "<eof>".to_owned(), self.line, self.col));
+            Ok(self.tokens)
+        }
         else { Err(errors) }
     }
 
@@ -51,7 +54,10 @@ impl<'a> Lexer<'a> {
     fn remove_whitespace(&mut self) -> bool {
         for regex in &self.syntax.comments {
             if let Some(m) = regex.find(self.src) {
-                self.src = &self.src[m.end()..]
+                for c in m.as_str().chars() {
+                    self.inc(1);
+                    if c == '\n' { self.line += 1 }
+                }
             }
         }
 

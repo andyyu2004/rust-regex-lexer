@@ -8,7 +8,8 @@ pub enum TokenKind {
     // Keywords
     In, Let,
     Lambda,
-
+    EOF,
+    
     // Classes
     Identifier,
     Typevar,
