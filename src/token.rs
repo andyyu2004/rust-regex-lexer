@@ -1,7 +1,7 @@
 use std::fmt::{Debug, Formatter, Error, Display};
 use crate::TokenKind;
 
-#[derive(PartialEq, Eq)]
+#[derive(PartialEq, Eq, Clone)]
 pub struct Token {
     pub kind: TokenKind,
     pub lexeme: String,
