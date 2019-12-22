@@ -7,8 +7,10 @@ pub enum TokenKind {
     Space,
     // Keywords
     In, Let,
+    Lambda,
 
     // Classes
     Identifier,
-    Typevar
+    Typevar,
+    Metavar,
 }
