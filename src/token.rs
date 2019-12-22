@@ -1,4 +1,4 @@
-use std::fmt::{Debug, Formatter, Error};
+use std::fmt::{Debug, Formatter, Error, Display};
 use crate::TokenKind;
 
 #[derive(PartialEq, Eq)]
@@ -12,6 +12,12 @@ pub struct Token {
 impl Token {
     pub fn new(kind: TokenKind, lexeme: String, line: usize, col: usize) -> Self {
         Self { kind, lexeme, line, col }
+    }
+}
+
+impl Display for Token {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "{}", self.lexeme)
     }
 }
 
