@@ -3,10 +3,10 @@ use crate::TokenKind;
 
 #[derive(PartialEq, Eq)]
 pub struct Token {
-    kind: TokenKind,
-    lexeme: String,
-    line: usize,
-    col: usize,
+    pub kind: TokenKind,
+    pub lexeme: String,
+    pub line: usize,
+    pub col: usize,
 }
 
 impl Token {
