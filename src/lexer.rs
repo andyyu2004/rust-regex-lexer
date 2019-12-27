@@ -3,10 +3,10 @@ use crate::{LexSyntax, Token, Catch, TokenKind};
 pub struct Lexer<'a> {
     syntax: &'a LexSyntax,
     src: &'a str,
-    tokens: Vec<Token>,
+    tokens: Vec<Token<'a>>,
     line: usize,
     col: usize,
-    ss: bool, // Space sensitivity 
+    ss: bool, // Space sensitivity
 }
 
 impl<'a> Lexer<'a> {
@@ -18,7 +18,7 @@ impl<'a> Lexer<'a> {
         Self { syntax, src, tokens: Vec::new(), line: 1, col: 0, ss: true }
     }
 
-    pub fn lex(mut self) -> Result<Vec<Token>, Vec<String>> {
+    pub fn lex(mut self) -> Result<Vec<Token<'a>>, Vec<String>> {
         let mut errors = Vec::new();
         while !self.src.is_empty() {
             // Only trim whitespace if not sensitive
@@ -28,7 +28,7 @@ impl<'a> Lexer<'a> {
         }
 
         if errors.is_empty() {
-            self.tokens.push(Token::new(TokenKind::EOF, "<eof>".to_owned(), self.line, self.col));
+            self.tokens.push(Token::new(TokenKind::EOF, "<eof>", self.line, self.col));
             Ok(self.tokens)
         }
         else { Err(errors) }
@@ -76,8 +76,8 @@ impl<'a> Lexer<'a> {
 
     fn inc(&mut self, n: usize) { self.src = &self.src[n..]; self.col += n }
 
-    fn emit(&mut self, lexeme: &str, kind: TokenKind) {
-        let token = Token::new(kind, lexeme.to_owned(), self.line, self.col);
+    fn emit(&mut self, lexeme: &'a str, kind: TokenKind) {
+        let token = Token::new(kind, lexeme, self.line, self.col);
         self.inc(lexeme.len());
         self.tokens.push(token)
     }

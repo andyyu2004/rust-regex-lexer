@@ -41,14 +41,14 @@ mod tests {
         let tokens = lexer.lex();
         println!("{:?}", tokens);
         assert_eq!(tokens, Ok(vec! [
-            Token::new(TokenKind::Backslash, "\\".to_owned(), 1, 0),
-            Token::new(TokenKind::LParen, "(".to_owned(), 1, 1),
-            Token::new(TokenKind::RParen, ")".to_owned(), 1, 2),
-            Token::new(TokenKind::Dot, ".".to_owned(), 1, 3),
-            Token::new(TokenKind::Let, "let".to_owned(), 1, 4),
-            Token::new(TokenKind::In, "in".to_owned(), 1, 7),
-            Token::new(TokenKind::RParen, ")".to_owned(), 1, 9),
-            Token::new(TokenKind::EOF, "<eof>".to_owned(), 1, 10),
+            Token::new(TokenKind::Backslash, "\\", 1, 0),
+            Token::new(TokenKind::LParen, "(", 1, 1),
+            Token::new(TokenKind::RParen, ")", 1, 2),
+            Token::new(TokenKind::Dot, ".", 1, 3),
+            Token::new(TokenKind::Let, "let", 1, 4),
+            Token::new(TokenKind::In, "in", 1, 7),
+            Token::new(TokenKind::RParen, ")", 1, 9),
+            Token::new(TokenKind::EOF, "<eof>", 1, 10),
         ]));
     }
 
@@ -58,7 +58,7 @@ mod tests {
         let lexer = Lexer::new(r#"//hello)"#, &syntax);
         let tokens = lexer.lex();
         println!("{:?}", tokens);
-        assert_eq!(tokens, Ok(vec![Token::new(TokenKind::EOF, "<eof>".to_owned(), 1, 8)]))
+        assert_eq!(tokens, Ok(vec![Token::new(TokenKind::EOF, "<eof>", 1, 8)]))
     }
 
     #[test]
@@ -68,16 +68,16 @@ mod tests {
         let tokens = lexer.lex();
         println!("{:?}", tokens);
         assert_eq!(tokens, Ok(vec![
-            Token::new(TokenKind::Backslash, "\\".to_owned(), 1, 0),
-            Token::new(TokenKind::Identifier, "x".to_owned(), 1, 1),
-            Token::new(TokenKind::Dot, ".".to_owned(), 1, 2),
-            Token::new(TokenKind::Backslash, "\\".to_owned(), 1, 3),
-            Token::new(TokenKind::Identifier, "y".to_owned(), 1, 4),
-            Token::new(TokenKind::Dot, ".".to_owned(), 1, 5),
-            Token::new(TokenKind::Identifier, "x".to_owned(), 1, 6),
-            Token::new(TokenKind::Space, " ".to_owned(), 1, 7),
-            Token::new(TokenKind::Identifier, "y".to_owned(), 1, 8),
-            Token::new(TokenKind::EOF, "<eof>".to_owned(), 1, 9),
+            Token::new(TokenKind::Backslash, "\\", 1, 0),
+            Token::new(TokenKind::Identifier, "x", 1, 1),
+            Token::new(TokenKind::Dot, ".", 1, 2),
+            Token::new(TokenKind::Backslash, "\\", 1, 3),
+            Token::new(TokenKind::Identifier, "y", 1, 4),
+            Token::new(TokenKind::Dot, ".", 1, 5),
+            Token::new(TokenKind::Identifier, "x", 1, 6),
+            Token::new(TokenKind::Space, " ", 1, 7),
+            Token::new(TokenKind::Identifier, "y", 1, 8),
+            Token::new(TokenKind::EOF, "<eof>", 1, 9),
         ]))
     }
 
