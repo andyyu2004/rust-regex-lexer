@@ -1,5 +1,5 @@
 
-#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
 pub enum TokenKind {
     // Symbols
     Backslash, Dot, Equal,
@@ -8,10 +8,15 @@ pub enum TokenKind {
     // Keywords
     In, Let,
     Lambda,
+    Plus, Minus, Slash, Times,
+    Tilde, Bang,
     EOF,
     
     // Classes
     Identifier,
     Typevar,
     Metavar,
+    Integral,
+    Float,
+    Unknown,
 }

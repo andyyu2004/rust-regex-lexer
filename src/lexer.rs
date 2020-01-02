@@ -43,10 +43,10 @@ impl<'a> Lexer<'a> {
             }
         }
 
+        let err = Err(format!("Failed to find a symbol to match `{}`", self.src));
         // Push the lexer forward on failure and find the remaining errors
         if !self.src.is_empty() { self.inc(1) }
-
-        Err(format!("Failed to find a symbol to match {}", self.src))
+        err
     }
 
     /// Trims left whitespace and comments
