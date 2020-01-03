@@ -1,12 +1,18 @@
 use std::fmt::{Debug, Formatter, Error, Display};
 use crate::TokenKind;
 
-#[derive(PartialEq, Eq, Clone, Copy)]
+#[derive(Eq, Clone, Copy)]
 pub struct Token<'a> {
     pub kind: TokenKind,
     pub lexeme: &'a str,
     pub line: usize,
     pub col: usize,
+}
+
+impl<'a> PartialEq for Token<'a> {
+    fn eq(&self, other: &Self) -> bool {
+        self.kind == other.kind && self.lexeme == other.lexeme
+    }
 }
 
 impl<'a> Token<'a> {

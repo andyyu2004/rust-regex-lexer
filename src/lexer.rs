@@ -1,24 +1,24 @@
 use crate::{LexSyntax, Token, Catch, TokenKind};
 
-pub struct Lexer<'a> {
-    syntax: &'a LexSyntax,
-    src: &'a str,
-    tokens: Vec<Token<'a>>,
+pub struct Lexer<'syn, 'src : 'syn> {
+    syntax: &'syn LexSyntax,
+    src: &'src str,
+    tokens: Vec<Token<'src>>,
     line: usize,
     col: usize,
     ss: bool, // Space sensitivity
 }
 
-impl<'a> Lexer<'a> {
-    pub fn new(src: &'a str, syntax: &'a LexSyntax) -> Self {
+impl<'syn, 'src : 'syn> Lexer<'syn, 'src> {
+    pub fn new(src: &'src str, syntax: &'syn LexSyntax) -> Self {
         Self { syntax, src, tokens: Vec::new(), line: 1, col: 0, ss: false }
     }
 
-    pub fn space_sensitive(src: &'a str, syntax: &'a LexSyntax) -> Self {
+    pub fn space_sensitive(src: &'src str, syntax: &'syn LexSyntax) -> Self {
         Self { syntax, src, tokens: Vec::new(), line: 1, col: 0, ss: true }
     }
 
-    pub fn lex(mut self) -> Result<Vec<Token<'a>>, Vec<String>> {
+    pub fn lex(mut self) -> Result<Vec<Token<'src>>, Vec<String>> {
         let mut errors = Vec::new();
         while !self.src.is_empty() {
             // Only trim whitespace if not sensitive
@@ -76,7 +76,7 @@ impl<'a> Lexer<'a> {
 
     fn inc(&mut self, n: usize) { self.src = &self.src[n..]; self.col += n }
 
-    fn emit(&mut self, lexeme: &'a str, kind: TokenKind) {
+    fn emit(&mut self, lexeme: &'src str, kind: TokenKind) {
         let token = Token::new(kind, lexeme, self.line, self.col);
         self.inc(lexeme.len());
         self.tokens.push(token)
