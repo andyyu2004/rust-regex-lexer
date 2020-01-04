@@ -15,6 +15,18 @@ mod tests {
     use super::*;
     use regex::Regex;
 
+    macro_rules! map(
+        { $($key:expr => $value:expr),+ } => {
+            {
+                let mut m = ::std::collections::HashMap::new();
+                $(
+                    m.insert($key, $value);
+                )+
+                m
+            }
+         };
+    );
+
     fn gen_syntax() -> LexSyntax {
         LexSyntax {
             symbols: vec! [
@@ -23,10 +35,13 @@ mod tests {
                 (Regex::new(r#"^\("#).unwrap(),    TokenKind::LParen),
                 (Regex::new(r#"^\)"#).unwrap(),    TokenKind::RParen),
                 (Regex::new(r#"^\."#).unwrap(),    TokenKind::Dot),
-                (Regex::new(r#"^let"#).unwrap(),   TokenKind::Let),
-                (Regex::new(r#"^in"#).unwrap(),    TokenKind::In),
                 (Regex::new(r#"^[a-z]"#).unwrap(), TokenKind::Identifier)
             ],
+            keywords: map! {
+                "fn" => TokenKind::Fn,
+                "in" => TokenKind::In,
+                "let" => TokenKind::Let
+            },
             comments: vec! [
                 Regex::new(r#"^//.*(\n|\z)"#).unwrap(),
                 Regex::new(r#"^/\*.*\*/"#).unwrap()

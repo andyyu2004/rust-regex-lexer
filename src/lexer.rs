@@ -34,12 +34,17 @@ impl<'syn, 'src : 'syn> Lexer<'syn, 'src> {
         else { Err(errors) }
     }
 
-    /// Assume every regex is prepended with a caret, so start === 0
+    /// Assume every regex is prepended with a caret => regex_match.start === 0
     /// Searches left to right through the symbol vector
     fn find(&mut self) -> Result<(), String> {
         for (regex, kind) in &self.syntax.symbols {
             if let Some(regex_match) = regex.find(self.src) {
-                return Ok(self.emit(regex_match.as_str(), *kind))
+                let s = regex_match.as_str();
+                return Ok(if let Some(&keyword) = self.syntax.keywords.get(s) {
+                    self.emit(s, keyword)
+                } else { 
+                    self.emit(s, *kind)
+                })
             }
         }
 

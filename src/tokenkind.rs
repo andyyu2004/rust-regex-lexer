@@ -6,15 +6,17 @@ pub enum TokenKind {
     Backslash, Dot, Equal,
     LParen, RParen,
     Space,
-    // Keywords
-    In, Let,
-    Lambda,
     Plus, Minus, Slash, Star, 
     Tilde, Bang, Caret, DStar,
     LT, LTE, GT, GTE, DEqual, BangEqual,
     True, False,
     Colon, SemiColon, LBrace, RBrace,
     EOF, 
+
+    // Keywords
+    In, Let,
+    Lambda,
+    Fn,
     
     // Classes
     Identifier,
@@ -66,6 +68,7 @@ impl Display for TokenKind {
             TokenKind::SemiColon  => write!(f, ";"),
             TokenKind::LBrace     => write!(f, "{{"),
             TokenKind::RBrace     => write!(f, "}}"),
+            TokenKind::Fn         => write!(f, "fn"),
         }
     }
 }
