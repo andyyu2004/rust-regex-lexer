@@ -11,7 +11,10 @@ pub enum TokenKind {
     LT, LTE, GT, GTE, DEqual, BangEqual,
     True, False,
     Colon, SemiColon, LBrace, RBrace,
-    EOF, 
+    Comma,
+    EOF,
+    RArrow, RFArrow,
+    Bool, Int, 
 
     // Keywords
     In, Let,
@@ -20,6 +23,7 @@ pub enum TokenKind {
     
     // Classes
     Identifier,
+    Typename,
     Typevar,
     Metavar,
     Integral,
@@ -58,6 +62,7 @@ impl Display for TokenKind {
             TokenKind::Float      => write!(f, "<float>"),
             TokenKind::Str        => write!(f, "<str>"),
             TokenKind::Unknown    => write!(f, "<unknown>"),
+            TokenKind::Typename   => write!(f, "<typename>"),
             TokenKind::LT         => write!(f, "<"),
             TokenKind::LTE        => write!(f, "<="),
             TokenKind::GT         => write!(f, ">"),
@@ -65,10 +70,15 @@ impl Display for TokenKind {
             TokenKind::DEqual     => write!(f, "=="),
             TokenKind::BangEqual  => write!(f, "!="),
             TokenKind::Colon      => write!(f, ":"),
+            TokenKind::Comma      => write!(f, ","),
             TokenKind::SemiColon  => write!(f, ";"),
             TokenKind::LBrace     => write!(f, "{{"),
             TokenKind::RBrace     => write!(f, "}}"),
             TokenKind::Fn         => write!(f, "fn"),
+            TokenKind::RArrow     => write!(f, "->"),
+            TokenKind::RFArrow    => write!(f, "=>"),
+            TokenKind::Bool       => write!(f, "bool"),
+            TokenKind::Int        => write!(f, "int"),
         }
     }
 }

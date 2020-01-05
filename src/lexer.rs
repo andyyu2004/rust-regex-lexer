@@ -4,6 +4,7 @@ pub struct Lexer<'syn, 'src : 'syn> {
     syntax: &'syn LexSyntax,
     src: &'src str,
     tokens: Vec<Token<'src>>,
+    index: usize,
     line: usize,
     col: usize,
     ss: bool, // Space sensitivity
@@ -11,11 +12,11 @@ pub struct Lexer<'syn, 'src : 'syn> {
 
 impl<'syn, 'src : 'syn> Lexer<'syn, 'src> {
     pub fn new(src: &'src str, syntax: &'syn LexSyntax) -> Self {
-        Self { syntax, src, tokens: Vec::new(), line: 1, col: 0, ss: false }
+        Self { syntax, src, tokens: Vec::new(), index: 0, line: 1, col: 0, ss: false }
     }
 
     pub fn space_sensitive(src: &'src str, syntax: &'syn LexSyntax) -> Self {
-        Self { syntax, src, tokens: Vec::new(), line: 1, col: 0, ss: true }
+        Self { syntax, src, tokens: Vec::new(), index: 0, line: 1, col: 0, ss: true }
     }
 
     pub fn lex(mut self) -> Result<Vec<Token<'src>>, Vec<String>> {
@@ -28,7 +29,7 @@ impl<'syn, 'src : 'syn> Lexer<'syn, 'src> {
         }
 
         if errors.is_empty() {
-            self.tokens.push(Token::new(TokenKind::EOF, "<eof>", self.line, self.col));
+            self.tokens.push(Token::new(TokenKind::EOF, "<eof>", self.index, self.line, self.col));
             Ok(self.tokens)
         }
         else { Err(errors) }
@@ -73,16 +74,16 @@ impl<'syn, 'src : 'syn> Lexer<'syn, 'src> {
             "\n" => { self.inc(1); self.line += 1; self.col = 0 }
             "\t" => { self.inc(1); self.col += 3 }
             "\r" => { self.inc(1); self.col = 0 }
-            _    => { return false } // Comments have been trimmed and there is no more whitespace
+            _    => { return false } // Comments have been trimmed and there is no more whitespace to skip
         };
 
         return true;
     }
 
-    fn inc(&mut self, n: usize) { self.src = &self.src[n..]; self.col += n }
+    fn inc(&mut self, n: usize) { self.src = &self.src[n..]; self.col += n; self.index += n; }
 
     fn emit(&mut self, lexeme: &'src str, kind: TokenKind) {
-        let token = Token::new(kind, lexeme, self.line, self.col);
+        let token = Token::new(kind, lexeme, self.index, self.line, self.col);
         self.inc(lexeme.len());
         self.tokens.push(token)
     }

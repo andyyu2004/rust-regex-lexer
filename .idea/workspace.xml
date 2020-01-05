@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bdd6aebe-9a6e-4d6e-9476-8e45c9ba9e8e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/lexer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexer.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tokenkind.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tokenkind.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,10 +29,12 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../parsertypechecker" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
   </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+    <option name="version" value="2" />
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -56,7 +58,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1577945434482</updated>
-      <workItem from="1577945435705" duration="5775000" />
+      <workItem from="1577945435705" duration="9531000" />
+      <workItem from="1578200674022" duration="625000" />
     </task>
     <servers />
   </component>
@@ -68,9 +71,13 @@
       <screen x="0" y="27" width="1920" height="988" />
     </state>
     <state x="555" y="182" width="800" height="684" key="#Inspections/0.27.1920.988@0.27.1920.988" timestamp="1577945460959" />
-    <state x="623" y="243" width="672" height="678" key="search.everywhere.popup" timestamp="1578087356055">
+    <state x="743" y="279" width="424" height="491" key="FileChooserDialogImpl" timestamp="1578204027499">
       <screen x="0" y="27" width="1920" height="988" />
     </state>
-    <state x="623" y="243" width="672" height="678" key="search.everywhere.popup/0.27.1920.988@0.27.1920.988" timestamp="1578087356055" />
+    <state x="743" y="279" width="424" height="491" key="FileChooserDialogImpl/0.27.1920.988@0.27.1920.988" timestamp="1578204027499" />
+    <state x="623" y="243" width="672" height="678" key="search.everywhere.popup" timestamp="1578204018362">
+      <screen x="0" y="27" width="1920" height="988" />
+    </state>
+    <state x="623" y="243" width="672" height="678" key="search.everywhere.popup/0.27.1920.988@0.27.1920.988" timestamp="1578204018362" />
   </component>
 </project>
