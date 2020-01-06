@@ -35,13 +35,11 @@ mod tests {
                 (Regex::new(r#"^\("#).unwrap(),    TokenKind::LParen),
                 (Regex::new(r#"^\)"#).unwrap(),    TokenKind::RParen),
                 (Regex::new(r#"^\."#).unwrap(),    TokenKind::Dot),
+                (Regex::new(r#"^in"#).unwrap(),    TokenKind::In),
+                (Regex::new(r#"^let"#).unwrap(),   TokenKind::Let),
                 (Regex::new(r#"^[a-z]"#).unwrap(), TokenKind::Identifier)
             ],
-            keywords: map! {
-                "fn" => TokenKind::Fn,
-                "in" => TokenKind::In,
-                "let" => TokenKind::Let
-            },
+            keywords: std::collections::HashMap::new(),
             comments: vec! [
                 Regex::new(r#"^//.*(\n|\z)"#).unwrap(),
                 Regex::new(r#"^/\*.*\*/"#).unwrap()
@@ -56,14 +54,14 @@ mod tests {
         let tokens = lexer.lex();
         println!("{:?}", tokens);
         assert_eq!(tokens, Ok(vec! [
-            Token::new(TokenKind::Backslash, "\\", 1, 0),
-            Token::new(TokenKind::LParen, "(", 1, 1),
-            Token::new(TokenKind::RParen, ")", 1, 2),
-            Token::new(TokenKind::Dot, ".", 1, 3),
-            Token::new(TokenKind::Let, "let", 1, 4),
-            Token::new(TokenKind::In, "in", 1, 7),
-            Token::new(TokenKind::RParen, ")", 1, 9),
-            Token::new(TokenKind::EOF, "<eof>", 1, 10),
+            Token::new(TokenKind::Backslash, "\\", 0, 1, 0),
+            Token::new(TokenKind::LParen, "(", 1, 1, 1),
+            Token::new(TokenKind::RParen, ")", 2, 1, 2),
+            Token::new(TokenKind::Dot, ".", 3, 1, 3),
+            Token::new(TokenKind::Let, "let", 4, 1, 4),
+            Token::new(TokenKind::In, "in", 7, 1, 7),
+            Token::new(TokenKind::RParen, ")", 9, 1, 9),
+            Token::new(TokenKind::EOF, "<eof>", 9, 1, 9),
         ]));
     }
 
@@ -73,7 +71,7 @@ mod tests {
         let lexer = Lexer::new(r#"//hello)"#, &syntax);
         let tokens = lexer.lex();
         println!("{:?}", tokens);
-        assert_eq!(tokens, Ok(vec![Token::new(TokenKind::EOF, "<eof>", 1, 8)]))
+        assert_eq!(tokens, Ok(vec![Token::new(TokenKind::EOF, "<eof>", 8, 1, 8)]))
     }
 
     #[test]
@@ -83,16 +81,16 @@ mod tests {
         let tokens = lexer.lex();
         println!("{:?}", tokens);
         assert_eq!(tokens, Ok(vec![
-            Token::new(TokenKind::Backslash, "\\", 1, 0),
-            Token::new(TokenKind::Identifier, "x", 1, 1),
-            Token::new(TokenKind::Dot, ".", 1, 2),
-            Token::new(TokenKind::Backslash, "\\", 1, 3),
-            Token::new(TokenKind::Identifier, "y", 1, 4),
-            Token::new(TokenKind::Dot, ".", 1, 5),
-            Token::new(TokenKind::Identifier, "x", 1, 6),
-            Token::new(TokenKind::Space, " ", 1, 7),
-            Token::new(TokenKind::Identifier, "y", 1, 8),
-            Token::new(TokenKind::EOF, "<eof>", 1, 9),
+            Token::new(TokenKind::Backslash, "\\", 0, 1, 0),
+            Token::new(TokenKind::Identifier, "x", 1, 1, 1),
+            Token::new(TokenKind::Dot, ".", 2, 1, 2),
+            Token::new(TokenKind::Backslash, "\\", 3, 1, 3),
+            Token::new(TokenKind::Identifier, "y", 4, 1, 4),
+            Token::new(TokenKind::Dot, ".", 5, 1, 5),
+            Token::new(TokenKind::Identifier, "x", 6, 1, 6),
+            Token::new(TokenKind::Space, " ", 7, 1, 7),
+            Token::new(TokenKind::Identifier, "y", 8, 1, 8),
+            Token::new(TokenKind::EOF, "<eof>", 9, 1, 9),
         ]))
     }
 

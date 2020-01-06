@@ -29,7 +29,8 @@ impl<'syn, 'src : 'syn> Lexer<'syn, 'src> {
         }
 
         if errors.is_empty() {
-            self.tokens.push(Token::new(TokenKind::EOF, "<eof>", self.index - 1, self.line, self.col));
+            // - 1 to avoid potential out of bounds errors as this token does not actually exist in src
+            self.tokens.push(Token::new(TokenKind::EOF, "<eof>", self.index - 1, self.line, self.col - 1));
             Ok(self.tokens)
         }
         else { Err(errors) }
