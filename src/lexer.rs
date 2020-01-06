@@ -29,7 +29,7 @@ impl<'syn, 'src : 'syn> Lexer<'syn, 'src> {
         }
 
         if errors.is_empty() {
-            self.tokens.push(Token::new(TokenKind::EOF, "<eof>", self.index, self.line, self.col));
+            self.tokens.push(Token::new(TokenKind::EOF, "<eof>", self.index - 1, self.line, self.col));
             Ok(self.tokens)
         }
         else { Err(errors) }
